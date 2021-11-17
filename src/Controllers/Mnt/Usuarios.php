@@ -3,52 +3,19 @@
 namespace Controllers\Mnt;
 
 use Controllers\PrivateController;
+use Controllers\PublicController;
+use Views\Renderer;
 
-class Usuarios extends PrivateController{
-    public function run():void
+
+class Usuarios extends PrivateController
+{
+    public function run() :void 
     {
         $viewData = array();
-        $viewData["Usuarios"] = \Dao\Security\Security::getUsuarios();
-        $viewData["CanInsert"] = self::isFeatureAutorized("Controllers\Mnt\Usuario\New");
-        $viewData["CanUpdate"] = self::isFeatureAutorized("Controllers\Mnt\Usuario\Upd");
-        $viewData["CanDelete"] = self::isFeatureAutorized("Controllers\Mnt\Usuario\Del");
-        $viewData["CanView"] = self::isFeatureAutorized("Controllers\Mnt\Usuario\Dsp");
-
-        \Views\Renderer::render("mnt/usuarios", $viewData);
+        $viewData["items"] = \Dao\Mnt\Usuarios::obtenerUsuarios();
+        $viewData["new_enabled"] = $this->isFeatureAutorized("mnt_usuarios_new");
+        $viewData["edit_enabled"] = $this->isFeatureAutorized("mnt_usuarios_edit");
+        $viewData["delete_enabled"] = $this->isFeatureAutorized("mnt_usuarios_delete");
+        Renderer::render("mnt/usuarios", $viewData);
     }
 }
-
-/*
-{
-    Usuarios: [],
-    CanInsert: true,
-    CanUpdate: true,
-    CanDelete: true,
-    CanView: true
-}
-
-withContext =
-root =
-{
-    Usuarios: [],
-    CanInsert: true,
-    CanUpdate: true,
-    CanDelete: true,
-    CanView: true
-}
-
-foreach Usuarios
-    withContext = Usuarios
-    
-    root =
-        {
-            Usuarios: [],
-            CanInsert: true,
-            CanUpdate: true,
-            CanDelete: true,
-            CanView: true
-        }
-endfor Usuarios
-*/
-
-?>

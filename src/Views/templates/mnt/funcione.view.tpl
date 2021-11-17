@@ -1,12 +1,10 @@
 <h1>{{mode_dsc}}</h1>
 <section>
-  <form action="index.php?page=mnt_categoria&mode={{mode}}&catid={{catid}}"
+  <form action="index.php?page=mnt_funcione&mode={{mode}}&fncod={{catid}}"
     method="POST" >
     <section>
     <label for="catid">Código</label>
-    <input type="hidden" id="catid" name="catid" value="{{catid}}"/>
-    <input type="hidden" id="mode" name="mode" value="{{mode}}" />
-    <input type="hidden" id="xsrftoken" name="xsrftoken" value="{{xsrftoken}}" />
+    <input type="hidden" id="fncod" name="fncod" value="{{catid}}"/>
     <input type="text" readonly name="catiddummy" value="{{catid}}"/>
     </section>
     <section>
@@ -15,9 +13,6 @@
     </section>
     <section>
       <label for="catest">Estado</label>
-      {{if readonly}}
-       <input type="hidden" id="catestdummy" name="catest" value="" />
-      {{endif readonly}}
       <select id="catest" name="catest" {{if readonly}}disabled{{endif readonly}}>
         <option value="ACT" {{catest_ACT}}>Activo</option>
         <option value="INA" {{catest_INA}}>Inactivo</option>
@@ -27,9 +22,9 @@
     {{if hasErrors}}
         <section>
           <ul>
-            {{foreach Errors}}
+            {{foreach aErrors}}
                 <li>{{this}}</li>
-            {{endfor Errors}}
+            {{endfor aErrors}}
           </ul>
         </section>
     {{endif hasErrors}}
@@ -48,7 +43,7 @@
       document.getElementById("btnCancelar").addEventListener("click", function(e){
         e.preventDefault();
         e.stopPropagation();
-        window.location.assign("index.php?page=mnt_categorias");
+        window.location.assign("index.php?page=mnt_funciones");
       });
   });
 </script>
