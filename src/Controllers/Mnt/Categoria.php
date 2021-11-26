@@ -24,11 +24,8 @@ class Categoria extends PublicController
         $viewData = array(
             "mode_dsc"=>"",
             "mode" => "",
-            "catid" => "",
-            "catnom" => "",
-            "catest_ACT"=>"",
-            "catest_INA" => "",
-            "catest_PLN"=>"",
+            "idCategorias" => "",
+            "categoriaDes" => "",
             "hasErrors" => false,
             "Errors" => array(),
             "showaction"=>true,
@@ -44,35 +41,23 @@ class Categoria extends PublicController
         if ($this->isPostBack()) {
             // se ejecuta al dar click sobre guardar
             $viewData["mode"] = $_POST["mode"];
-            $viewData["catid"] = $_POST["catid"] ;
-            $viewData["catnom"] = $_POST["catnom"];
-            $viewData["catest"] = $_POST["catest"];
+            $viewData["idCategorias"] = $_POST["idCategorias"] ;
+            $viewData["categoriaDes"] = $_POST["categoriaDes"];
             $viewData["xsrftoken"] = $_POST["xsrftoken"];
             // Validate XSRF Token
             if (!isset($_SESSION["xsrftoken"]) || $viewData["xsrftoken"] != $_SESSION["xsrftoken"]) {
                 $this->nope();
             }
             // Validaciones de Errores
-            if (\Utilities\Validators::IsEmpty($viewData["catnom"])) {
+            if (\Utilities\Validators::IsEmpty($viewData["categoriaDes"])) {
                 $viewData["hasErrors"] = true;
                 $viewData["Errors"][] = "El nombre no Puede Ir Vacio!";
             }
-            if (($viewData["catest"] == "INA"
-                || $viewData["catest"] == "ACT"
-                || $viewData["catest"] == "PLN"
-                ) == false
-            ) {
-                $viewData["hasErrors"] = true;
-                $viewData["Errors"][] = "Estado de Categoria Incorrecto!";
-            }
-
-            
             if (!$viewData["hasErrors"]) {
                 switch($viewData["mode"]) {
                 case "INS":
                     if (\Dao\Mnt\Categorias::crearCategoria(
-                        $viewData["catnom"],
-                        $viewData["catest"]
+                        $viewData["categoriaDes"]
                     )
                     ) {
                         $this->yeah();
@@ -80,9 +65,8 @@ class Categoria extends PublicController
                     break;
                 case "UPD":
                     if (\Dao\Mnt\Categorias::editarCategoria(
-                        $viewData["catnom"],
-                        $viewData["catest"],
-                        $viewData["catid"]
+                        $viewData["categoriaDes"],
+                        $viewData["idCategorias"]
                     )
                     ) {
                         $this->yeah();
@@ -90,7 +74,7 @@ class Categoria extends PublicController
                     break;
                 case "DEL":
                     if (\Dao\Mnt\Categorias::eliminarCategoria(
-                        $viewData["catid"]
+                        $viewData["idCategorias"]
                     )
                     ) {
                         $this->yeah();
@@ -109,8 +93,8 @@ class Categoria extends PublicController
             } else {
                 $this->nope();
             }
-            if (isset($_GET["catid"])) {
-                $viewData["catid"] = $_GET["catid"];
+            if (isset($_GET["idCategorias"])) {
+                $viewData["idCategorias"] = $_GET["idCategorias"];
             } else {
                 if ($viewData["mode"] !=="INS") {
                     $this->nope();
@@ -123,15 +107,12 @@ class Categoria extends PublicController
         if ($viewData["mode"] == "INS") {
             $viewData["mode_dsc"]  = $modeDscArr["INS"];
         } else {
-            $tmpCategoria = \Dao\Mnt\Categorias::obtenerCategoria($viewData["catid"]);
-            $viewData["catnom"] = $tmpCategoria["catnom"];
-            $viewData["catest_ACT"] = $tmpCategoria["catest"] == "ACT" ? "selected": "";
-            $viewData["catest_INA"] = $tmpCategoria["catest"] == "INA" ? "selected" : "";
-            $viewData["catest_PLN"] = $tmpCategoria["catest"] == "PLN" ? "selected" : "";
+            $tmpCategoria = \Dao\Mnt\Categorias::obtenerCategoria($viewData["idCategorias"]);
+            $viewData["categoriaDes"] = $tmpCategoria["categoriaDes"];
             $viewData["mode_dsc"]  = sprintf(
                 $modeDscArr[$viewData["mode"]],
-                $viewData["catid"],
-                $viewData["catnom"]
+                $viewData["idCategorias"],
+                $viewData["categoriaDes"]
             );
             if ($viewData["mode"] == "DSP") {
                 $viewData["showaction"]= false ;
