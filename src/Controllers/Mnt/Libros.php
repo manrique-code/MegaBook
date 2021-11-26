@@ -11,7 +11,7 @@ class Libros extends PrivateController
     {
         $viewData = array();
         // dd(\Dao\Mnt\Libros::obtenerTodoLibros());
-        $viewData["items"] = \Dao\Mnt\Libros::obtenerTodoLibros();
+        $viewData["items"] = \Dao\Mnt\Libros::obtenerLibros();
         // Verificamos si el usuario está autorizado para utilizar las funciones.
         $viewData["new_enabled"] = self::isFeatureAutorized("Controllers\Mnt\Libros\New");
         $viewData["edit_enabled"] = self::isFeatureAutorized("Controllers\Mnt\Libros\Edit");
