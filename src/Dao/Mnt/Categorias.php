@@ -10,39 +10,35 @@ class Categorias extends Table
         $sqlStr = "SELECT * from categorias;";
         return self::obtenerRegistros($sqlStr, array());
     }
-    public static function obtenerCategoria($catid)
+    public static function obtenerCategoria($idCategorias)
     {
-        $sqlStr = "SELECT * from categorias where catid = :catid;";
-        return self::obtenerUnRegistro($sqlStr, array("catid"=>intval($catid)));
+        $sqlStr = "SELECT * from categorias where idCategorias = :idCategorias;";
+        return self::obtenerUnRegistro($sqlStr, array("idCategorias"=>intval($idCategorias)));
     }
-    public static function crearCategoria($catnom, $catest)
+    public static function crearCategoria($categoriaDes)
     {
-        $sqlstr = "INSERT INTO categorias (catnom, catest) values (:catnom, :catest);";
+        $sqlstr = "INSERT INTO categorias (categoriaDes) values (:categoriaDes);";
         $parametros = array(
-            "catnom" => $catnom,
-            "catest" => $catest
+            "categoriaDes" => $categoriaDes
         );
         return self::executeNonQuery($sqlstr, $parametros);
     }
 
-    public static function editarCategoria($catnom, $catest, $catid)
+    public static function editarCategoria($categoriaDes, $idCategorias)
     {
-        $sqlstr = "UPDATE categorias set catnom=:catnom, catest=:catest where catid = :catid;";
+        $sqlstr = "UPDATE categorias set categoriaDes=:categoriaDes where idCategorias = :idCategorias;";
         $parametros = array(
-            "catnom" =>  $catnom,
-            "catest" =>  $catest,
-            "catid" => intval($catid)
+            "categoriaDes" =>  $categoriaDes,
+            "idCategorias" => intval($idCategorias)
         );
         return self::executeNonQuery($sqlstr, $parametros);
-        // sqlstr = "UPDATE X SET Y = '".$Y."' where Z='".$Z."';";
-        // $Y = "'; DROP DATABASE mysql; SELECT * FROM (SELECT DATE)
     }
 
-    public static function eliminarCategoria($catid)
+    public static function eliminarCategoria($idCategorias)
     {
-        $sqlstr = "DELETE FROM categorias where catid=:catid;";
+        $sqlstr = "DELETE FROM categorias where idCategorias=:idCategorias;";
         $parametros = array(
-            "catid" => intval($catid)
+            "idCategorias" => intval($idCategorias)
         );
         return self::executeNonQuery($sqlstr, $parametros);
     }
