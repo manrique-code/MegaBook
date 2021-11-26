@@ -43,11 +43,13 @@ class Libros extends Table
 
     // Creamos un libro en la base de datos.
     public static function crearLibro(
+        $idlibros,
         $nombreLibro,
         $descripcion
     ) {
-        $sqlStr = "INSERT INTO libros(nombreLibro, descripcion) VALUES(:nombreLibro, :descripcion);";
+        $sqlStr = "INSERT INTO libros(idlibros, nombreLibro, descripcion) VALUES(:idlibros,:nombreLibro, :descripcion);";
         return self::executeNonQuery($sqlStr, array(
+            "idlibros" => $idlibros,
             "nombreLibro" => $nombreLibro,
             "descripcion" => $descripcion
         ));
