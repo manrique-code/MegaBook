@@ -1,28 +1,47 @@
+<style>
+  label{
+    padding-right: 50px;
+    scroll-padding-bottom: 50px;
+  }
+  section{
+    padding-right: 15px;
+    scroll-padding-bottom: 25px;
+  }
+  .gird{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+  }
+  .centro{
+    width: 1100px;
+    display: block;
+    margin: auto;
+  }
+  input[type="text"],
+  input[type="date"],
+  input[type="password"],select{
+    width: 300px;
+    margin-top: 10px;
+  }
+  button{
+    margin-right: 15px;
+  }
+</style>
 <h1>{{mode_dsc}}</h1>
+
+
 <section>
-  <form action="index.php?page=mnt_categoria&mode={{mode}}&catid={{catid}}"
+  <form action="index.php?page=mnt_categoria&mode={{mode}}&idCategorias={{idCategorias}}"
     method="POST" >
     <section>
-    <label for="catid">Código</label>
-    <input type="hidden" id="catid" name="catid" value="{{catid}}"/>
+    <label for="idCategorias">Código</label>
+    <input type="hidden" id="idCategorias" name="idCategorias" value="{{idCategorias}}"/>
     <input type="hidden" id="mode" name="mode" value="{{mode}}" />
     <input type="hidden" id="xsrftoken" name="xsrftoken" value="{{xsrftoken}}" />
-    <input type="text" readonly name="catiddummy" value="{{catid}}"/>
+    <input type="text" readonly name="idCategoriasdummy" value="{{idCategorias}}"/>
     </section>
     <section>
-      <label for="catnom">Categoría</label>
-      <input type="text" {{readonly}} name="catnom" value="{{catnom}}" maxlength="45" placeholder="Nombre de Categoría"/>
-    </section>
-    <section>
-      <label for="catest">Estado</label>
-      {{if readonly}}
-       <input type="hidden" id="catestdummy" name="catest" value="" />
-      {{endif readonly}}
-      <select id="catest" name="catest" {{if readonly}}disabled{{endif readonly}}>
-        <option value="ACT" {{catest_ACT}}>Activo</option>
-        <option value="INA" {{catest_INA}}>Inactivo</option>
-        <option value="PLN" {{catest_PLN}}>Planificación</option>
-      </select>
+      <label for="categoriaDes">Categoría</label>
+      <input type="text" {{readonly}} name="categoriaDes" value="{{categoriaDes}}" maxlength="45" placeholder="Nombre de Categoría"/>
     </section>
     {{if hasErrors}}
         <section>
@@ -41,7 +60,6 @@
     </section>
   </form>
 </section>
-
 
 <script>
   document.addEventListener("DOMContentLoaded", function(){
