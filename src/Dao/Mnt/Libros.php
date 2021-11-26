@@ -15,11 +15,11 @@ class Libros extends Table
                             GROUP_CONCAT(c.categoriaDes SEPARATOR ', ') as categorias
                     FROM libros l
                     INNER JOIN libros_autores la
-                    ON l.idlibros = la.idLibro
+                    ON l.idlibros = la.idlibros
                     INNER JOIN autores a
                     on la.idAutor = a.idAutor
                     INNER JOIN libros_categorias lc
-                    ON l.idlibros = lc.idLibro
+                    ON l.idlibros = lc.idlibros
                     INNER JOIN categorias c
                     on lc.idCategoria = c.idCategorias
                     ORDER BY l.idlibros;";
