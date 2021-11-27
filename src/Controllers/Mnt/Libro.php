@@ -96,11 +96,9 @@ class Libro extends PrivateController
         if ($viewData["mode"] == "INS") {
             $viewData["idlibros"] = \Dao\Mnt\Libros::GUID();
             $viewData["mode_dsc"] = $modeDscArray["INS"];
-            // dd($viewData["autor"]);
         } else {
             // Obtenemos el libro al momento de actualizar
             $tmpLibro = \Dao\Mnt\Libros::obtenerLibro($viewData["idlibros"]);
-            // dd($tmpLibro);
             $viewData["nombreLibro"] = $tmpLibro["nombreLibro"];
             $viewData["descripcion"] = $tmpLibro["descripcion"];
             $viewData["coverart"] = $tmpLibro["coverart"];
@@ -114,7 +112,7 @@ class Libro extends PrivateController
                 $viewData["readonly"] = "readonly";
             }
             if ($viewData["mode"] === "DEL") {
-                // $viewData["showAction"] = true;
+                $viewData["showAction"] = false;
             }
             if ($viewData["mode"] === "UPD") $viewData["showAction"] = true;
         }
