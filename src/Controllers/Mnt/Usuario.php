@@ -4,7 +4,7 @@ namespace Controllers\Mnt;
 use Controllers\PrivateController;
 use Controllers\PublicController;
 
-class Usuario extends PrivateController
+class Usuario extends PublicController
 {
     private function nope()
     {
@@ -93,6 +93,12 @@ class Usuario extends PrivateController
                 $viewData["hasErrors"] = true;
                 $viewData["Errors"][] = "El userfching no Puede Ir Vacio!";
             }
+            if (!\Utilities\Validators::IsValidPassword($viewData["userpswd"])) {
+                $viewData["hasErrors"] = true;
+                $viewData["Errors"][] = "La contraseña debe tener al menos 8 caracteres una mayúscula, un número y un caracter especial.";
+            }
+
+
             
             /*if (($viewData["userpswdest"] == "INA"
                 || $viewData["userpswdest"] == "ACT"
@@ -143,7 +149,7 @@ class Usuario extends PrivateController
                     if (\Dao\Mnt\Usuarios::crearUsuario(
                         $viewData["useremail"],
                         $viewData["username"],
-                        $viewData["userpswd"],
+                        \Dao\Mnt\Usuarios::_hashPassword($viewData["userpswd"]),
                         $viewData["userfching"],
                         $viewData["userpswdest"],
                         $viewData["userpswdexp"],
@@ -160,7 +166,7 @@ class Usuario extends PrivateController
                     if (\Dao\Mnt\Usuarios::editarUsuario(
                         $viewData["useremail"],
                         $viewData["username"],
-                        $viewData["userpswd"],
+                        \Dao\Mnt\Usuarios::_hashPassword($viewData["userpswd"]),
                         $viewData["userfching"],
                         $viewData["userpswdest"],
                         $viewData["userpswdexp"],
@@ -232,27 +238,24 @@ class Usuario extends PrivateController
             $viewData["funciones"] = \Dao\Mnt\usuarioRoles::obtenerRolesPorUsuario($viewData["usercod"]);
             $viewData["mode_dsc"]  = sprintf(
                 $modeDscArr[$viewData["mode"]],
-                
                 $viewData["usercod"],
                 $viewData["useremail"],
                 $viewData["username"],
                 $viewData["userpswd"],
-                $viewData["userfching"],
-                
+                $viewData["userfching"], 
                 $viewData["userpswdexp"],
-                
                 $viewData["useractcod"],
                 $viewData["userpswdchg"],
-                
             );
             if ($viewData["mode"] == "DSP") {
-                $viewData["showaction"]= false ;
+                $viewData["showaction"]= true ;
                 $viewData["readonly"] = "readonly";
                 $viewData["editarUsuario"] = true;
                 $viewData["quitarRol"] = false;
             }
             if ($viewData["mode"] == "DEL") {
                 $viewData["readonly"] = "readonly";
+                $viewData["editarUsuario"]=false;
             }
             if ($viewData["mode"] == "DEL") $viewData["readonly"] = "readonly";
             if ($viewData["mode"] == "UPD") $viewData["editarFunciones"] = true;
@@ -261,7 +264,6 @@ class Usuario extends PrivateController
         // Generar un token XSRF para evitar esos ataques
         $viewData["xsrftoken"] = md5($this->name . random_int(10000, 99999));
         $_SESSION["xsrftoken"] = $viewData["xsrftoken"];
-
         \Views\Renderer::render("mnt/usuario", $viewData);
     }
 }

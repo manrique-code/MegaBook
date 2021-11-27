@@ -1,9 +1,10 @@
 <?php
 namespace Controllers\Mnt;
 
+use Controllers\PrivateController;
 use Controllers\PublicController;
 
-class Autor extends PublicController
+class Autor extends PrivateController
 {
     private function nope()
     {

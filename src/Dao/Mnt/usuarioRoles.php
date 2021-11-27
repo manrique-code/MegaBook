@@ -21,7 +21,7 @@ class usuarioRoles extends Table{
     }
 
     public static function InsertarRolesUsuario($usercod,$rolescod){
-        $sqlStr= "INSERT INTO `nw202101`.`roles_usuarios` (`usercod`, `rolescod`, `roleuserest`, `roleuserfch`, `roleuserexp`) VALUES (:usercod, :rolescod, 'ACT', now(), now());";
+        $sqlStr= "INSERT INTO `roles_usuarios` (`usercod`, `rolescod`, `roleuserest`, `roleuserfch`, `roleuserexp`) VALUES (:usercod, :rolescod, 'ACT', now(), now());";
         return self::executeNonQuery($sqlStr, array("usercod"=>$usercod,"rolescod" => $rolescod));
     }
     
