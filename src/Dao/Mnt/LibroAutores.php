@@ -52,7 +52,7 @@ class LibroAutores extends Table
 
     public static function crearLibroConAutor($idlibros, $idAutor)
     {
-        $sqlStr = "INSERT INTO autores(idlibros, idAutor) VALUES(:idlibros, :idAutor);";
+        $sqlStr = "INSERT INTO libros_autores(idlibros, idAutor) VALUES(:idlibros, :idAutor);";
         $datos = array(
             "idlibros" => $idlibros,
             "idAutor" => $idAutor
@@ -62,7 +62,7 @@ class LibroAutores extends Table
 
     public static function eliminarLibroConAutor($idAutor)
     {
-        $sqlStr = "DELETE FROM libro_autores WHERE idAutor = :idAutor";
+        $sqlStr = "DELETE FROM libros_autores WHERE idAutor = :idAutor";
         return self::executeNonQuery($sqlStr, array("idAutor" => $idAutor));
     }
 }
