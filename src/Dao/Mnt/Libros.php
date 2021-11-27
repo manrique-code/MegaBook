@@ -45,13 +45,15 @@ class Libros extends Table
     public static function crearLibro(
         $idlibros,
         $nombreLibro,
-        $descripcion
+        $descripcion,
+        $coverart
     ) {
-        $sqlStr = "INSERT INTO libros(idlibros, nombreLibro, descripcion) VALUES(:idlibros,:nombreLibro, :descripcion);";
+        $sqlStr = "INSERT INTO libros(idlibros, nombreLibro, descripcion, coverart) VALUES(:idlibros,:nombreLibro, :descripcion, :coverart);";
         return self::executeNonQuery($sqlStr, array(
             "idlibros" => $idlibros,
             "nombreLibro" => $nombreLibro,
-            "descripcion" => $descripcion
+            "descripcion" => $descripcion,
+            "coverart" => $coverart
         ));
     }
 
@@ -59,12 +61,14 @@ class Libros extends Table
     public static function editarLibro(
         $nombreLibro,
         $descripcion,
+        $coverart,
         $idlibros
     ) {
-        $sqlStr = "UPDATE libros SET nombreLibro = :nombreLibro, descripcion = :descripcion WHERE idlibros = :idlibros;";
+        $sqlStr = "UPDATE libros SET nombreLibro = :nombreLibro, descripcion = :descripcion, coverart = :coverart WHERE idlibros = :idlibros;";
         return self::executeNonQuery($sqlStr, array(
             "nombreLibro" => $nombreLibro,
             "descripcion" => $descripcion,
+            "coverart" => $coverart,
             "idlibros" => $idlibros
         ));
     }
