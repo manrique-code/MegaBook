@@ -83,9 +83,47 @@ class Libros extends Table
         ));
     }
 
+    public static function obtenerCoverartLibro($idlibros)
+    {
+        $sqlStr = "SELECT coverart FROM libros WHERE idlibros = :idlibros";
+        return self::obtenerUnRegistro($sqlStr, array("idlibros" => $idlibros));
+    }
+
     public static function GUID()
     {
         $guid = sprintf('%04X%04X-%04X-%04X-%04X-%04X%04X%04X', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
         return substr($guid, 0, 64);
+    }
+
+    // Función que se encarga de subir el cover del libro.
+    public static function subirImagen($imagen)
+    {
+        $serverPath = "c:/xampp/htdocs/MegaBook/";
+        $coverPath = "public/imgs/coverarts/" . $imagen["name"];
+        return (move_uploaded_file($imagen["tmp_name"], $serverPath . $coverPath)) ? $coverPath : false;
+    }
+
+    // Función que elimina el cover del libro.
+    public static function eliminarImagen($idlibros)
+    {
+        $serverPath = "c:/xampp/htdocs/MegaBook/";
+        $coverPath = self::obtenerCoverartLibro($idlibros)["coverart"];
+        if ($coverPath) {
+            $imagenPath = $serverPath . $coverPath;
+            return (file_exists($imagenPath)) ? unlink($imagenPath) : false;
+        }
+        return true;
+    }
+
+    // Función que actualiza el cover del libro.
+    public static function actualizarImagen($imagen, $idlibros)
+    {
+        $coverPath = self::obtenerCoverartLibro($idlibros)["coverart"];
+        // dd(!is_null($coverPath));
+        if ($coverPath) {
+            $IMAGE_ON_DATABASE = substr($coverPath, 22);
+            if ($imagen["name"] !== $IMAGE_ON_DATABASE) if (self::eliminarImagen($idlibros)) return self::subirImagen($imagen);
+            return $coverPath;
+        } else return self::subirImagen($imagen);
     }
 }
