@@ -1,7 +1,7 @@
 <h1>{{mode_dsc}}</h1>
 <section>
 
-    <form action="index.php?page=mnt_libro&mode={{mode}}&idlibros={{idlibros}}" method="POST">
+    <form action="index.php?page=mnt_libro&mode={{mode}}&idlibros={{idlibros}}" method="POST" enctype="multipart/form-data">
 
         <fieldset id="libro" class="libro">
         
