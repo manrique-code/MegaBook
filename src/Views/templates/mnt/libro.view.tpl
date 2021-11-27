@@ -16,9 +16,19 @@
             <legend>Información del libro</legend>
             <section>
                 <label for="coverart">Portada del libro</label>
-                <button id="coverart" name="coverart">Seleccionar Imagen</button>
+                <input 
+                type="file" 
+                name="coverart" 
+                id="coverart" 
+                accept="image/png, image/jpeg"
+                title="Elegir la portada del libro">
                 <div class="coverart-libro" id="covertArtLibro">
-                    <img src="" alt="Imagen del libro" class="coverart-img" id="coverArtImg" name="coverartImg">
+                    <img 
+                    src="http://localhost/MegaBook/{{coverart}}" 
+                    alt="Imagen del libro" 
+                    class="coverart-img" 
+                    id="coverArtImg" 
+                    name="coverartImg">
                 </div>
             </section>
             <section>
