@@ -26,7 +26,7 @@ class Libro extends PrivateController
     private function nextStep($idlibros)
     {
         \Utilities\Site::redirectToWithMsg(
-            "index.php?page=mnt_autor&mode=INS&idAutor=0&idlibros=$idlibros",
+            "index.php?page=mnt_libroautores&mode=CRT&idlibros=$idlibros",
             "¡Operación realizada satisfactoriamente!"
         );
     }
