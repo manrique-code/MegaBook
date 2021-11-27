@@ -96,6 +96,6 @@ selectEl.onchange = function(){
 };
 
 let volverAtras = site => {
-    window.location.assign(`index.php?page=mnt_libros&mode=DSP&idlibros=${site}`);
+    window.location.assign(`index.php?page=mnt_libro&mode=DSP&idlibros=${site}`);
 }
 </script>
