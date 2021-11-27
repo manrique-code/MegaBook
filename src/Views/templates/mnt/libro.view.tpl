@@ -66,11 +66,26 @@
 </section>
 
 <script>
-      document.addEventListener("DOMContentLoaded", function(){
-      document.getElementById("btnCancelar").addEventListener("click", function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        window.location.assign("index.php?page=mnt_libros");
-      });
-  });
+    document.addEventListener("DOMContentLoaded", function(){
+        document.getElementById("btnCancelar").addEventListener("click", function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            window.location.assign("index.php?page=mnt_libros");
+        });
+
+        const previewImage = () => {
+            let oFReader = new FileReader();
+            oFReader.readAsDataURL(document.getElementById("coverart").files[0]);
+
+            oFReader.onload = e => {
+                document.getElementById("coverArtImg").src = e.target.result;
+            };
+        };
+
+        document.getElementById("coverart").addEventListener("change", e => {
+            e.preventDefault();
+            e.stopPropagation();
+            previewImage();
+        });
+    });
 </script>
