@@ -56,4 +56,10 @@ class Autores extends Table
             "idAutor" => $idAutor
         ));
     }
+
+    public static function obtenerUltimoID()
+    {
+        $sqlStr = "SELECT MAX(idAutor) as UltimoID FROM autores;";
+        return self::obtenerUnRegistro($sqlStr, array());
+    }
 }
