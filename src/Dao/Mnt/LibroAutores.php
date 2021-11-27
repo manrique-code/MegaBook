@@ -29,6 +29,27 @@ class LibroAutores extends Table
         return self::obtenerRegistros($sqlStr, array("idlibros" => $idlibros));
     }
 
+    // Función para obtener los autores que no son realizadores de un libro en específico.
+    public static function obtenerNoAutorPorLibro($idlibros)
+    {
+        $sqlStr = "SELECT
+                    idAutor,
+                    CONCAT(nombreAutor, ' ', apellidoAutor) as nombreAutor
+                    FROM autores
+                    WHERE idAutor NOT IN
+                    (SELECT a.idAutor
+                    FROM libros l
+                    INNER JOIN libros_autores la
+                    ON l.idlibros = la.idlibros
+                    INNER JOIN autores a
+                    on la.idAutor = a.idAutor
+                    WHERE l.idlibros = :idlibros)
+                    ORDER BY nombreAutor;";
+        return self::obtenerRegistros($sqlStr, array(
+            "idlibros" => $idlibros
+        ));
+    }
+
     public static function crearLibroConAutor($idlibros, $idAutor)
     {
         $sqlStr = "INSERT INTO autores(idlibros, idAutor) VALUES(:idlibros, :idAutor);";
