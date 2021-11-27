@@ -10,7 +10,8 @@
 
     .contenedor{
         display: grid;
-        grid-template-columns: repeat(4,auto);
+        grid-template-rows: repeat(4,auto);
+        gap: .5rem;
         padding-bottom: 15px;
     }
 
@@ -45,6 +46,7 @@
             <input type="hidden" id="idAutor" name="idAutor" value="{{idAutor}}"/>
     <input type="hidden" id="mode" name="mode" value="{{mode}}" />
     <input type="hidden" id="xsrftoken" name="xsrftoken" value="{{xsrftoken}}" />
+    <input type="hidden" name="idlibros" id="idlibros" value="{{idlibros}}">
     <input type="text" readonly name="idAutordummy" value="{{idAutor}}"/>
     </section>
 
