@@ -58,22 +58,22 @@ class Libro extends PrivateController
             $viewData["idlibros"] = $_POST["idlibros"];
             $viewData["nombreLibro"] = $_POST["nombreLibro"];
             $viewData["descripcion"] = $_POST["descripcion"];
+            if (isset($_FILES["coverart"])) $viewData["coverart"] = $_FILES["coverart"];
             switch ($viewData["mode"]) {
                 case "INS":
-                    // dd($_POST);
                     if (\Dao\Mnt\Libros::crearLibro(
                         $viewData["idlibros"],
                         $viewData["nombreLibro"],
-                        $viewData["descripcion"]
+                        $viewData["descripcion"],
+                        \Dao\Mnt\Libros::subirImagen($viewData["coverart"])
                     ))
                         $this->nextStep($viewData["idlibros"]);
-                    // dd($viewData);
                     break;
                 case "UPD":
-                    // dd($_POST);
                     if (\Dao\Mnt\Libros::editarLibro(
                         $viewData["nombreLibro"],
                         $viewData["descripcion"],
+                        \Dao\Mnt\Libros::actualizarImagen($viewData["coverart"], $viewData["idlibros"]),
                         $viewData["idlibros"]
                     ))
                         $this->yeah();
