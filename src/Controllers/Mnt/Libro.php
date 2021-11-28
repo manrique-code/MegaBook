@@ -44,6 +44,7 @@ class Libro extends PrivateController
             "Errors" => array(),
             "showAction" => true,
             "readonly" => false,
+            "steps" => false
         );
 
         $modeDscArray = array(
@@ -58,31 +59,57 @@ class Libro extends PrivateController
             $viewData["idlibros"] = $_POST["idlibros"];
             $viewData["nombreLibro"] = $_POST["nombreLibro"];
             $viewData["descripcion"] = $_POST["descripcion"];
-            if (isset($_FILES["coverart"])) $viewData["coverart"] = $_FILES["coverart"];
-            switch ($viewData["mode"]) {
-                case "INS":
-                    if (\Dao\Mnt\Libros::crearLibro(
-                        $viewData["idlibros"],
-                        $viewData["nombreLibro"],
-                        $viewData["descripcion"],
-                        \Dao\Mnt\Libros::subirImagen($viewData["coverart"])
-                    ))
-                        $this->nextStep($viewData["idlibros"]);
-                    break;
-                case "UPD":
-                    if (\Dao\Mnt\Libros::editarLibro(
-                        $viewData["nombreLibro"],
-                        $viewData["descripcion"],
-                        \Dao\Mnt\Libros::actualizarImagen($viewData["coverart"], $viewData["idlibros"]),
-                        $viewData["idlibros"]
-                    ))
-                        $this->yeah();
-                    break;
-                case "DEL":
-                    if (\Dao\Mnt\Libros::eliminarLibro($viewData["idlibros"])) $this->yeah();
-                    break;
-                default:
-                    $this->nope("66");
+            $viewData["xsrftoken"] = $_POST["xsrftoken"];
+            // Validar el XSRFTOKEN.
+            if (!isset($_SESSION["xsrftoken"]) || $viewData["xsrftoken"] != $_SESSION["xsrftoken"]) {
+                $this->nope("63");
+            }
+            // dd($_FILES["coverart"]["name"]);
+            if (
+                (trim($_FILES["coverart"]["name"]) !== "") &&
+                ($_FILES["coverart"]["size"] > 0) &&
+                (trim($_FILES["coverart"]["tmp_name"] !== ""))
+            ) {
+                $viewData["coverart"] = $_FILES["coverart"];
+            } else {
+                $viewData["hasErrors"] = true;
+                $viewData["Errors"][] = "¡El libro necesita una portada!";
+            }
+            if (\Utilities\Validators::IsEmpty($viewData["nombreLibro"])) {
+                $viewData["hasErrors"] = true;
+                $viewData["Errors"][] = "¡El nombre del libro no puede ir vacio!";
+            }
+            if (\Utilities\Validators::IsEmpty($viewData["descripcion"])) {
+                $viewData["hasErrors"] = true;
+                $viewData["Errors"][] = "¡La descripción del libro no puede estar vacía!";
+            }
+
+            if (!$viewData["hasErrors"]) {
+                switch ($viewData["mode"]) {
+                    case "INS":
+                        if (\Dao\Mnt\Libros::crearLibro(
+                            $viewData["idlibros"],
+                            $viewData["nombreLibro"],
+                            $viewData["descripcion"],
+                            \Dao\Mnt\Libros::subirImagen($viewData["coverart"])
+                        ))
+                            $this->nextStep($viewData["idlibros"]);
+                        break;
+                    case "UPD":
+                        if (\Dao\Mnt\Libros::editarLibro(
+                            $viewData["nombreLibro"],
+                            $viewData["descripcion"],
+                            \Dao\Mnt\Libros::actualizarImagen($viewData["coverart"], $viewData["idlibros"]),
+                            $viewData["idlibros"]
+                        ))
+                            $this->yeah();
+                        break;
+                    case "DEL":
+                        if (\Dao\Mnt\Libros::eliminarLibro($viewData["idlibros"])) $this->yeah();
+                        break;
+                    default:
+                        $this->nope("66");
+                }
             }
         } else {
             if (isset($_GET["mode"])) {
@@ -96,6 +123,7 @@ class Libro extends PrivateController
         if ($viewData["mode"] == "INS") {
             $viewData["idlibros"] = \Dao\Mnt\Libros::GUID();
             $viewData["mode_dsc"] = $modeDscArray["INS"];
+            $viewData["steps"] = true;
         } else {
             // Obtenemos el libro al momento de actualizar
             $tmpLibro = \Dao\Mnt\Libros::obtenerLibro($viewData["idlibros"]);
@@ -116,6 +144,8 @@ class Libro extends PrivateController
             }
             if ($viewData["mode"] === "UPD") $viewData["showAction"] = true;
         }
+        $viewData["xsrftoken"] = md5($this->name . random_int(10000, 99999));
+        $_SESSION["xsrftoken"] = $viewData["xsrftoken"];
         Renderer::render("mnt/libro", $viewData);
     }
 }
