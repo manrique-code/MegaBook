@@ -2,10 +2,11 @@
 
 namespace Controllers\Mnt;
 
+use Controllers\PrivateController;
 use Controllers\PublicController;
 use Views\Renderer;
 
-class Rol extends PublicController
+class Rol extends PrivateController
 {
     private function nope()
     {

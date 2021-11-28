@@ -6,7 +6,7 @@ use Dao\Table;
 class Usuarios extends Table{
     public static function obtenerUsuarios()
     {
-        $sqlStr = "SELECT * from usuario;";
+        $sqlStr = "SELECT usercod,useremail,username,userpswd,date(userfching)userfching,userpswdest,date(userpswdexp)userpswdexp,userest,useractcod,userpswdchg,usertipo from usuario;";
         return self::obtenerRegistros($sqlStr, array());
     }
 
@@ -61,5 +61,27 @@ class Usuarios extends Table{
             "usercod" => intval($usercod)
         );
         return self::executeNonQuery($sqlstr, $parametros);
+    }
+
+    public static function _saltPassword($password)
+    {
+        return hash_hmac(
+            "sha256",
+            $password,
+            \Utilities\Context::getContextByKey("PWD_HASH")
+        );
+    }
+
+    public static function _hashPassword($password)
+    {
+        return password_hash(self::_saltPassword($password), PASSWORD_ALGORITHM);
+    }
+
+    public static function verifyPassword($raw_password, $hash_password)
+    {
+        return password_verify(
+            self::_saltPassword($raw_password),
+            $hash_password
+        );
     }
 }

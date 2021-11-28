@@ -13,9 +13,9 @@ class Usuarios extends PrivateController
     {
         $viewData = array();
         $viewData["items"] = \Dao\Mnt\Usuarios::obtenerUsuarios();
-        $viewData["new_enabled"] = $this->isFeatureAutorized("mnt_usuarios_new");
-        $viewData["edit_enabled"] = $this->isFeatureAutorized("mnt_usuarios_edit");
-        $viewData["delete_enabled"] = $this->isFeatureAutorized("mnt_usuarios_delete");
+        $viewData["new_enabled"] = self::isFeatureAutorized("Controllers\Mnt\Usuarios\New");
+        $viewData["edit_enabled"] = self::isFeatureAutorized("Controllers\Mnt\Usuarios\Edit");
+        $viewData["delete_enabled"] = self::isFeatureAutorized("Controllers\Mnt\Usuarios\Delete");
         Renderer::render("mnt/usuarios", $viewData);
     }
 }

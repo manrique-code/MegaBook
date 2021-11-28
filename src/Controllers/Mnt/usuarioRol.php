@@ -35,6 +35,7 @@ class usuarioRol extends PublicController
             "roleuserest_INA" => "",
             "roleuserest_PLN"=>"",
             "funciones" => array(),
+            "showaction"=>true,
             "nonFunciones" => array()
         );
         if ($this->isPostBack()) {
