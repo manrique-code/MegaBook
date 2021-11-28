@@ -28,7 +28,6 @@
 </style>
 <h1>{{mode_dsc}}</h1>
 
-
 <section>
   <form action="index.php?page=mnt_categoria&mode={{mode}}&idCategorias={{idCategorias}}"
     method="POST" >

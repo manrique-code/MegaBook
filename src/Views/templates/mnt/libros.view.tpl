@@ -28,8 +28,6 @@
       <tr>
         <td>{{idlibros}}</td>
         <td><a href="index.php?page=mnt_libro&mode=DSP&idlibros={{idlibros}}">{{nombreLibro}}</a></td>
-        <td>{{nombreAutor}}</td>
-        <td>{{categorias}}</td>
         <td>
           {{if ~edit_enabled}}
           <form action="index.php" method="get">
