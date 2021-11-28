@@ -1,0 +1,76 @@
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-Book_25.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-BookItalic_15.otf");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-Bold_16.otf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-BoldItalic_11.otf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-Medium_26.otf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-MedItalic_18.otf");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-ExtraBold_12.otf");
+  font-weight: bolder;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "P22";
+  src: url("../fonts/P22/P22MackinacPro-ExBoldItalic_17.otf");
+  font-weight: bolder;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("../fonts/Neue/NeueHaasDisplayBold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("../fonts/Neue/NeueHaasDisplayMediu.ttf");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Neue Haas";
+  src: url("../fonts/Neue/NeueHaasDisplayRoman.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
