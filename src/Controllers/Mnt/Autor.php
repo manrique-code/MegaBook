@@ -46,7 +46,8 @@ class Autor extends PrivateController
             "showaction" => true,
             "readonly" => false,
             "ultimoIdAutor" => "",
-            "idlibros" => ""
+            "idlibros" => "",
+            "steps" => false
         );
         $modeDscArr = array(
             "INS" => "Nuevo Autor",
@@ -153,6 +154,7 @@ class Autor extends PrivateController
             // revisamos si hay un libro que insertar.
             if (isset($_GET["idlibros"])) {
                 $viewData["idlibros"] = $_GET["idlibros"];
+                $viewData["steps"] = true;
             }
         } else {
             $tmpCategoria = \Dao\Mnt\Autores::obtenerAutor($viewData["idAutor"]);
