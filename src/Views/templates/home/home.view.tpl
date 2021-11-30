@@ -148,7 +148,7 @@ main {
   width: auto;
   height: 150px;
   object-fit: cover;
-  transition: all 0.4s ease;
+  transition:all 0.4s cubic-bezier(.25,.1,.28,2.36);
   transition-delay: 0.3s;
 }
 
