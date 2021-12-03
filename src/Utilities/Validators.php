@@ -18,6 +18,12 @@ class Validators {
         return preg_match("/^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,32}$/", $valor) && true;
     }
 
+    static public function ISPasswordEqual($valor,$valor2){
+        if($valor==$valor2){
+            return true;
+        }
+    }
+
     private function __construct()
     {
         

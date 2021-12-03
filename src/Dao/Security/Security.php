@@ -47,7 +47,7 @@ class Security extends \Dao\Table
         return self::obtenerRegistros($sqlstr, array());
     }
 
-    static public function newUsuario($email, $password)
+    static public function newUsuario($email, $password, $txtFecha, $txtNombre)
     {
         if (!\Utilities\Validators::IsValidEmail($email)) {
             throw new Exception("Correo no es válido");
@@ -56,17 +56,26 @@ class Security extends \Dao\Table
             throw new Exception("Contraseña debe ser almenos 8 caracteres, 1 número, 1 mayúscula, 1 símbolo especial");
         }
 
+        if (\Utilities\Validators::IsEmpty($txtFecha)) {
+            throw new Exception("La Fecha no puede ir Vacia");
+        }
+
+        if (\Utilities\Validators::IsEmpty($txtNombre)) {
+            throw new Exception("El nombre no puede ir Vacia");
+        }
+        
         $newUser = self::_usuarioStruct();
         //Tratamiento de la Contraseña
         $hashedPassword = self::_hashPassword($password);
 
         unset($newUser["usercod"]);
-        unset($newUser["userfching"]);
+        //unset($newUser["userfching"]);
         unset($newUser["userpswdchg"]);
 
         $newUser["useremail"] = $email;
-        $newUser["username"] = "John Doe";
+        $newUser["username"] = $txtNombre;
         $newUser["userpswd"] = $hashedPassword;
+        $newUser["userfching"] = $txtFecha;
         $newUser["userpswdest"] = Estados::ACTIVO;
         $newUser["userpswdexp"] = date('Y-m-d', time() + 7776000);  //(3*30*24*60*60) (m d h mi s)
         $newUser["userest"] = Estados::ACTIVO;
@@ -78,7 +87,7 @@ class Security extends \Dao\Table
             `userpswdchg`, `usertipo`)
             VALUES
             ( :useremail, :username, :userpswd,
-            now(), :userpswdest, :userpswdexp, :userest, :useractcod,
+            :userfching, :userpswdest, :userpswdexp, :userest, :useractcod,
             now(), :usertipo);";
 
         return self::executeNonQuery($sqlIns, $newUser);

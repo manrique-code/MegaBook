@@ -17,7 +17,8 @@
   {{endfor BeginScripts}}
 </head>
 <body>
-  <header>
+  
+    <header>
     <input type="checkbox" class="menu_toggle" id="menu_toggle" />
     <label for="menu_toggle" class="menu_toggle_icon" >
       <div class="hmb dgn pt-1"></div>
@@ -32,7 +33,8 @@
         <li><a href="index.php?page=sec_register"><i class="fas fa-user-plus"></i>&nbsp;Crear Cuenta</a></li>
       </ul>
     </nav>
-  </header>
+    </header>
+  
   <main>
   {{{page_content}}}
   </main>
