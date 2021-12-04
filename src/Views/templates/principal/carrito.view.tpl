@@ -1,22 +1,21 @@
 <style>
 
-    body {
-    font-family: "Poppins", sans-serif;
-    font-size: 1.6rem;
-    font-weight: 400;
+body {
+    font-family: "P22";
     background-color: #fff;
-    color: #243a6f;
-    position: relative;
-    z-index: 1;
 }
     /* Cart Items */
-    h1{
-        font-family: "Poppins", sans-serif;
-    }
-    img {
+h1{
+    font-family: "P22";
+    text-align: center;
+}
+img {
     max-width: 100%;
 }
 
+table{
+    font-family: "Neue Haas";
+}
 
 .container {
     max-width: 120rem;
@@ -39,7 +38,7 @@
 
 .btn {
     display: inline-block;
-    background-color: #fc7c7c;
+    background-color: #fe0000;
     padding: 1.2rem 4rem;
     color: #fff;
     font-weight: 600;
@@ -67,7 +66,7 @@ th {
     text-align: left;
     padding: 0.5rem;
     color: #fff;
-    background-color: #fc7c7c;
+    background-color: #030303;
     font-weight: normal;
 }
 
@@ -83,8 +82,7 @@ td input {
 
 td a,
 td button {
-    color: orangered;
-    font-size: 1.4rem;
+    color: #fe0000;
 }
 
 td img {
@@ -102,7 +100,7 @@ td img {
 }
 
 .total-price table {
-    border-top: 3px solid #fc7c7c;
+    border-top: 3px solid #030303;
     width: 100%;
     max-width: 35rem;
 }
@@ -132,29 +130,11 @@ th:last-child {
                 <th>ISV</th>
                 <th>Subtotal</th>
             </tr>
+            
             <tr>
                 <td>
                     <div class="cart-info">
-                        <img src="public/imgs/libros/Ojos de Fuego.jpg" alt="">
-                        <div>
-                            <p>El Resplandor</p>
-                            <span>Price: $50.00</span>
-                            <br />
-                            <a href="#">remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="100" min="1"></td>
-                <td>
-                    <span>150</span>
-                </td>
-                <td>$50.00</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="public/imgs/libros/Ojos de Fuego.jpg" alt="">
+                        <img src="public/imgs/megabook/megabookLogo.jpeg" alt="">
                         <div>
                             <p>El Resplandor</p>
                             <span>Price: $50.00</span>
@@ -170,43 +150,7 @@ th:last-child {
                 <td>$50.00</td>
             </tr>
 
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="public/imgs/libros/Ojos de Fuego.jpg" alt="">
-                        <div>
-                            <p>El Resplandor</p>
-                            <span>Price: $50.00</span>
-                            <br />
-                            <a href="#">remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1" min="1"></td>
-                <td>
-                    <span>150</span>
-                </td>
-                <td>$50.00</td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="public/imgs/libros/Ojos de Fuego.jpg" alt="">
-                        <div>
-                            <p>El Resplandor</p>
-                            <span>Price: $50.00</span>
-                            <br />
-                            <a href="#">remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1" min="1"></td>
-                <td>
-                    <span>150</span>
-                </td>
-                <td>$50.00</td>
-            </tr>
+            
             
         </table>
 
