@@ -17,7 +17,6 @@
         --secondary-button-bg-color: rgba(41, 128, 185,0.1);
         --secondary-button-accent-color: #2980b9;
         --secondary-button-font-color: #2980b9;
-
     }
 
     *,*::before,*::after {
@@ -235,6 +234,10 @@
             <section class="section-mnt">
                 <label for="descripcion" class="label-mnt">Sinópsis</label>
                 <textarea name="descripcion" id="descripcion" class="input-mnt" cols="30" rows="10">{{descripcion}}</textarea>
+            </section>
+            <section class="section-mnt">
+                <label for="color-libro">Color de fondo</label>
+                <input type="color" name="color-libro" id="color-libro">
             </section>
             {{if hasErrors}}
                 <section class="section-mnt section-error">

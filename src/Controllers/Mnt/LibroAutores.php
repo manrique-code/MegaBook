@@ -32,7 +32,8 @@ class LibroAutores extends PrivateController
             "idAutor" => "",
             "nombreAutor" => "",
             "autor" => array(),
-            "noAutor" => array()
+            "noAutor" => array(),
+            "steps" => true
         );
 
         if (isset($_GET["mode"])) {

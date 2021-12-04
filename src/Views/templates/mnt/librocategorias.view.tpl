@@ -1,5 +1,5 @@
 <style>
-    :root {
+      :root {
         --font-primary-color: #333;
         --font-secondary-color: #6e6d81;
         --font-terciary-color: #2980b9;
@@ -75,7 +75,7 @@
     background-color: hsla(0, 60%, 40%, 1);
   }
 
-      .libro {
+        .libro {
         border: none;
         display: grid;
         grid-template-columns: repeat(5,1fr);
@@ -87,6 +87,10 @@
         display: flex;
         flex-flow: column nowrap;
         grid-column: 2 / -2;
+    }
+
+    .funciones.section-mnt {
+      flex-flow: row nowrap !important;
     }
 
     .steps {
@@ -152,17 +156,17 @@
     }
 </style>
 <div class="libro">
-    {{if steps}}
+      {{if steps}}
         <section class="steps section-mnt">
             <div class="step-item">
                 <span class="step-number">1</span>
                 <span class="step-name">Libro</span>
             </div>
-            <div class="step-item active">
+            <div class="step-item">
                 <span class="step-number">2</span>
                 <span class="step-name">Autor</span>
             </div>
-            <div class="step-item">
+            <div class="step-item active">
                 <span class="step-number">3</span>
                 <span class="step-name">Categoría</span>
             </div>
@@ -173,54 +177,59 @@
         </section>
         <hr class="section-mnt separator">
     {{endif steps}}
-    <h2 class="section-mnt">Seleccionando el autor del libro: {{nombreLibro}}</h2>
-    <section class="section-mnt">
-        <select name="" class="input-mnt" id="redirectSelect">
-            <option value="#">Seleccionar...</option>
-            {{foreach noAutor}}
-                <option value="index.php?page=mnt_libroautores&mode=INS&idlibros={{~idlibros}}&idautor={{idAutor}}">{{nombreAutor}}</option>
-            {{endfor noAutor}}
-        </select>
-    </section>
-    <div class="section-mnt">
-        <p>¿No aparece el autor de este libro?</p>
-        <a href="index.php?page=mnt_autor&mode=INS&idAutor=0&idlibros={{idlibros}}">Crealo aquí</a>
+  <h2 class="section-mnt">Selecciona la categoría del libro: {{nombreLibro}}</h2>
+  <section class="section-mnt">
+    <select name="" id="redirectSelect">
+      <option value="#">Seleccionar...</option>
+      {{foreach noCategoria}}
+      <option 
+        value="index.php?page=mnt_librocategorias&mode=INS&idlibros={{~idlibros}}&idcategoria={{idCategorias}}" 
+      >{{categoriaDes}}</option>
+      {{endfor noCategoria}}
+    </select>
+  </section>
+  <section class="section-mnt">
+    <p>¿No aparece la categoría de este libro?</p>
+    <a
+      href="index.php?page=mnt_categoria&mode=INS&idcategorias=0&idlibros={{idlibros}}"
+    >Creálo aquí</a>
+    <hr />
+  </section>
+  <h2 class="section-mnt">Categorias de: {{nombreLibro}}</h2>
+  <section class="funciones section-mnt">
+    {{foreach categoria}}
+    <div class="fnitems">
+      <a title="Eliminar la categoría {{categoriaDes}} del libro {{~nombreLibro}}"
+        class="delete-funcion"
+        href="index.php?page=mnt_librocategorias&mode=DEL&idlibros={{~idlibros}}&idcategoria={{idCategorias}}"
+      ><span>X</span></a>
+      <p>{{categoriaDes}}</p>
     </div>
-    <hr class="section-mnt separator">
-    <h2 class="section-mnt">Autores del libro: {{nombreLibro}}</h2>
-    <section class="funciones section-mnt">
-    {{foreach autor}}
-        <div class="fnitems">
-            <a title="Eliminar el autor {{nombreAutor}} del libro {{~nombreLibro}}" class="delete-funcion" href="index.php?page=mnt_libroautores&mode=DEL&idlibros={{~idlibros}}&idautor={{idAutor}}"><span>X</span></a>
-            <p>{{nombreAutor}}</p>
-        </div>
-    {{endfor autor}}
-    </section>
-    <section class="section-mnt buttons-container">
-        <button onclick="volverAtras('{{idlibros}}')" class="secondary-button">Volver atrás</button>
-        <button onclick="siguiente('{{idlibros}}')" class="primary-button">Siguiente</button>
-    </section>
+    {{endfor categoria}}
+  </section>
+  <div class="section-mnt buttons-container">
+    <button onclick="volverAtras('{{idlibros}}')" class="secondary-button">Volver atrás</button>
+    <button onclick="siguiente('{{idlibros}}')" class="primary-button">Siguiente</button>
+  </div>
 </div>
 
 <script>
-    function redirect(goto){
-    if (goto.trim() != '') {
-        window.location = goto;
+    function redirect(goto){ 
+        if (goto.trim() != '') {
+            window.location = goto; 
+        }
     }
-}
+    var selectEl = document.getElementById('redirectSelect'); 
+    selectEl.onchange =  function(){
+        var goto = this.value;
+        redirect(goto);
+    };
 
-var selectEl = document.getElementById('redirectSelect');
+    let volverAtras = site => {
+        window.location.assign(`index.php?page=mnt_libroautores&mode=DSP&idlibros=${site}`);
+    };
 
-selectEl.onchange = function(){
-    var goto = this.value;
-    redirect(goto);
-
-};
-
-let volverAtras = site => {
-    window.location.assign(`index.php?page=mnt_libro&mode=DSP&idlibros=${site}`);
-};
-let siguiente = site => {
-    window.location.assign(`index.php?page=mnt_librocategorias&mode=DSP&idlibros=${site}`);
-};
+    let siguiente = idlibros => {
+        window.location.assign(`index.php?page=mnt_librodetalle&mode=INS&idlibros=${idlibros}`);
+    };
 </script>

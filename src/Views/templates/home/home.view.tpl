@@ -3,10 +3,29 @@
   --primary-border-radius: 0.625rem;
   --primary-background-color: #ebebeb;
   --secondary-background-color: white;
+  --terciary-background-color:hsl(6, 70%, 92%);
   --primary-font-color: #222;
   --secondary-font-color: white;
+  --terciary-font-color: #e74c3c;
   --primary-button-color: #e74c3c;
+  --primary-button-hover-color: hsl(6, 78%, 45%);
   --secondary-button-color: white;
+  --font-primary-color: #333;
+  --font-secondary-color: #6e6d81;
+  --font-terciary-color: #2980b9;
+  --font-inactive-color: #778;
+  --font-error-color: #e74c3c;
+  --input-primary-color: #f6fafd;
+  --input-seconday-color: #fff;
+  --input-inactive-color: #f0f0f0;
+  --input-border-color: #999;
+  --input-border-focus-color: #0065DE;
+  --primary-button-bg-color: hsl(204, 80%, 80%);
+  --primar-button-accent-color: #2980b9;
+  --primary-button-font-color: white;
+  --secondary-button-bg-color: rgba(41, 128, 185,0.1);
+  --secondary-button-accent-color: #2980b9;
+  --secondary-button-font-color: #2980b9;
 }
 
 *,
@@ -15,7 +34,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Neue Haas";
 }
 
 body {
@@ -27,6 +46,10 @@ body {
   gap: 2px;
   background-color: var(--primary-background-color);
   /* overflow: hidden; */
+}
+
+a {
+    text-decoration: none;
 }
 
 .empty-state-container {
@@ -101,20 +124,68 @@ nav {
 }
 
 main {
-  grid-column: 2 / -2;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 15.625rem auto;
+  grid-template-rows: 4rem auto;
   grid-row: content;
   height: 100%;
   margin: 2rem 0;
+  gap: 1rem;
+}
+
+.sidebar-container {
+  grid-column: 1 / 2;
+  grid-row: 2 / -1;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.sidebar-title, .sidebar-item {
+  border-radius: .5rem;
+}
+.sidebar-title {
+  margin-top: 0 !important;
+  font-size: .9em;
+  margin: .2rem 1rem;
+  padding: 0 .5rem;
+  color: var(--font-secondary-color);
+  font-weight: normal;
+}
+
+.sidebar-item {
+  padding: 1rem .5rem;
+  margin: .2rem 1rem;
+  text-decoration: none;
+  color: var(--font-primary-color);
+  transition: .4s background-color ease-in-out, .4s color ease-in-out;
+}
+
+.saludo {
+  margin-bottom: 1em;
+  grid-column: 2 / -1;
+  grid-row: 1 / 2;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .books-title {
-  margin-bottom: 1em;
+  font-family: "P22";
+  font-size: 2em;
+  margin-bottom: .3em;
+  color: var(--primary-font-color);
+}
+
+.book-subtitle {
+  color: var(--font-secondary-color);
 }
 
 .books-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 18.75rem);
-  grid-auto-rows: 25rem;
+  grid-template-columns: repeat(auto-fill, 19rem);
+  grid-auto-rows: 30rem;
+  grid-column: 2 / -1;
+  grid-row: 2 / -1;
   justify-content: space-between;
   /* column-gap: 1em !important; */
   row-gap: 2em;
@@ -142,11 +213,11 @@ main {
   justify-items: center;
   width: 100%;
   flex: 70%;
+  border-radius: .5rem;
 }
-
 .book-image {
   width: auto;
-  height: 150px;
+  height: 180px;
   object-fit: cover;
   transition:all 0.4s cubic-bezier(.25,.1,.28,2.36);
   transition-delay: 0.3s;
@@ -159,13 +230,60 @@ main {
   overflow: hidden;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
+  justify-content: space-around;
   padding: 0.5em 0;
   align-items: center;
+  align-content: space-between;
+  margin: .5rem 0;
+  position: relative;
+}
+
+.book-name {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+
+.book-autor {
+    color: var(--font-secondary-color);
+}
+
+.book-precio {
+    font-size: 1rem;
+    color: var(--font-primary-color);
+    font-weight: 600;
+}
+
+.book-button-container {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.view-book-button, .add-to-cart-button {
+    width: 100%;
+    display: block;
+    text-align: center;
+    padding: .7em .5em;
+    border-radius: .5em;
+}
+
+.view-book-button {
+    color: var(--primary-button-color);
+    margin-bottom: .5em;
+    transition: .4s all ease-in-out;
+}
+
+.add-to-cart-button {
+    background-color: var(--primary-button-color);
+    color: var(--secondary-font-color);
+    transition: .4s all ease-in-out;
 }
 
 footer {
   grid-row: content-end / main-end;
+}
+
+i.fa {
+    font-family: "Font Awesome 5 Free" !important;
 }
 
 @media (hover: hover) {
@@ -184,7 +302,7 @@ footer {
   }
 
   .book-item:hover > .book-image-container > .book-image {
-    transform: scale(1.2);
+    transform: scale(1.15);
   }
 
   .sign-in:hover {
@@ -200,11 +318,40 @@ footer {
     /* border-bottom: 1px solid transparent !important; */
     cursor: pointer;
   }
+
+  .sidebar-item:hover {
+    background-color: var(--terciary-background-color);
+    color: var(--terciary-font-color);
+  }
+
+  .view-book-button:hover {
+    background-color: var(--terciary-background-color);
+}
+
+.add-to-cart-button:hover {
+    background-color: var(--primary-button-hover-color);
+}
 }
 </style>
 <title>MegaBook: Home</title>
 
-<h1 class="books-title">Libros</h1>
+<section class="saludo">
+  <h1 class="books-title">Hola, {{userName}}.</h1>
+  <span class="book-subtitle">¡Llevemonos un libro, hoy!</span>
+</section>
+
+<section class="destacados">
+    <div class="book-destacado">
+        <div class="book-destacado-image-container"><img src="" alt=""></div>
+        <div class="book-destacado-description-container">
+            <h2 class="book-destacado-titulo">Precio</h2>
+            <div class="precio-container">
+                <span class="precio-title">Precio</span>
+                <span class="precio">1000</span>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section class="books-container">
     {{if hasLibros}}
@@ -214,10 +361,14 @@ footer {
                     <img src="{{coverart}}" alt="{{nombreLibro}}" class="book-image" />
                 </div>
                 <div class="book-description-container">
-                    <p class="book-description" id="bookDescription-1984">{{nombreLibro}}</p>
-                    <p class="book-autor" data-autor="{{idAutor}}">{{nombreAutor}}</p>
+                    <span class="book-name">{{nombreLibro}}</span>
+                    <span class="book-autor" data-autor="{{idAutor}}">{{nombreAutor}}</span>
+                    <span class="book-precio">L.{{precio}}</span>
                 </div>
-                <span class="view-book-button"><a href="#">Ver libro</a></span>
+                <div class="book-button-container">
+                    <a href="#"><span class="view-book-button">Ver libro <i class="fas fa-cart-arrow-down"></i></span></a>
+                    <a href="#"><span class="add-to-cart-button">Añadir al carrito <i class="fas fa-cart-arrow-down"></i></span></a>
+                </div>
             </div>
         {{endfor libros}}
     {{endif hasLibros}}
@@ -230,3 +381,14 @@ footer {
         </div>
     {{endifnot hasLibros}}
 </section>
+
+<aside class="sidebar-container">
+    <h4 class="sidebar-title">Categorías</h4>
+    {{foreach categorias}}
+        <a 
+        href="index.php?page=home&q=busqueda&t=categorias&v={{idCategorias}}" 
+        class="sidebar-item" 
+        ><span class="sidebar-item-content">{{categoriaDes}}</span>
+        </a>
+    {{endfor categorias}}
+</aside>

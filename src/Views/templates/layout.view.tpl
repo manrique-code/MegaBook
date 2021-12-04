@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{SITE_TITLE}}</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="/{{BASE_DIR}}/public/fontawesome/css/all.css">
   <link rel="stylesheet" href="/{{BASE_DIR}}/public/css/appstyle.css" />
   <link rel="stylesheet" href="/{{BASE_DIR}}/public/css/font.css" />
-  <script src="https://kit.fontawesome.com/{{FONT_AWESOME_KIT}}.js" crossorigin="anonymous"></script>
   {{foreach SiteLinks}}
     <link rel="stylesheet" href="/{{~BASE_DIR}}/{{this}}" />
   {{endfor SiteLinks}}
