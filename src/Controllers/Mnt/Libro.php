@@ -44,7 +44,8 @@ class Libro extends PrivateController
             "Errors" => array(),
             "showAction" => true,
             "readonly" => false,
-            "steps" => false
+            "steps" => false,
+            "loggeado" => true
         );
 
         $modeDscArray = array(

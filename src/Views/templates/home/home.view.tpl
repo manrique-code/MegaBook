@@ -340,19 +340,6 @@ i.fa {
   <span class="book-subtitle">¡Llevemonos un libro, hoy!</span>
 </section>
 
-<section class="destacados">
-    <div class="book-destacado">
-        <div class="book-destacado-image-container"><img src="" alt=""></div>
-        <div class="book-destacado-description-container">
-            <h2 class="book-destacado-titulo">Precio</h2>
-            <div class="precio-container">
-                <span class="precio-title">Precio</span>
-                <span class="precio">1000</span>
-            </div>
-        </div>
-    </div>
-</section>
-
 <section class="books-container">
     {{if hasLibros}}
         {{foreach libros}}
