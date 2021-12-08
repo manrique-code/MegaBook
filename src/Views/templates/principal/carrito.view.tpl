@@ -141,7 +141,8 @@
                             <p>{{nombrelibro}}</p>
                             <span>Precio: {{precio}}</span>
                             <br />
-                            <a href="index.php?page=carrito&mode=DEL&usercod={{usercod}}">remove</a>
+                            <input type="hidden" name="idcarrito" value="{{idcarrito}}">
+                            <a href="index.php?page=carrito&mode=DEL&idcarrito={{idcarrito}}">remove</a>
                         </div>
                     </div>
                 </td>

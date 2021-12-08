@@ -4,28 +4,36 @@ namespace Dao\Mnt;
 use Dao\Table;
 
 class Carrito extends Table{
-    public static function obtenerDatosCarrito($usercod)
+    public static function obtenerDatosCarrito()
     {
-        $sqlStr = "SELECT u.usercod, u.username, tmpf.factnum, tmpf.fechafact, tmpfd.idlibro, l.nombrelibro,l.coverart,tmpfd.cantidad,ld.precio, (tmpfd.cantidad*ld.precio)subtotal, ((tmpfd.cantidad*ld.precio)*0.15)impuestos,((tmpfd.cantidad*ld.precio)*1.15)total   from usuario u join tmpfactura tmpf on u.usercod = tmpf.usercod join tmpfacturadetalle tmpfd on tmpf.idtmpfactura=tmpfd.idtmpfactur 
-        join libros l on tmpfd.idlibro = l.idlibros join libro_detalle ld on l.idlibros=ld.idlibro where u.usercod=:usercod";
-        return self::obtenerRegistros($sqlStr, array("usercod"=>$usercod));
+        $sqlStr = "SELECT c.idcarrito, c.idlibro, l.nombreLibro, l.coverart, ld.precio, c.cantidad, (ld.precio*c.cantidad)subtotal, ((ld.precio*c.cantidad)*0.15)impuesto  from carrito C JOIN libros l on c.idlibro=l.idlibros join  libro_detalle ld on l.idlibros = ld.idlibro;";
+        return self::obtenerRegistros($sqlStr, array());
     }
 
-    public static function obtenerTotalFact($usercod){
-        $sqlSTR= "SELECT sum(subtotal)subtotal, sum(impuestos)impuesto, (sum(subtotal)+sum(impuestos))total from(
-            select u.usercod, u.username, tmpf.factnum, tmpf.fechafact, tmpfd.idlibro, l.nombrelibro,l.coverart,tmpfd.cantidad,ld.precio, (tmpfd.cantidad*ld.precio)subtotal, ((tmpfd.cantidad*ld.precio)*0.15)impuestos,((tmpfd.cantidad*ld.precio)*1.15)total   from usuario u join tmpfactura tmpf on u.usercod = tmpf.usercod join tmpfacturadetalle tmpfd on tmpf.idtmpfactura=tmpfd.idtmpfactur 
-            join libros l on tmpfd.idlibro = l.idlibros join libro_detalle ld on l.idlibros=ld.idlibro where u.usercod=:usercod)factura";
+    public static function obtenerTotalFact(){
+        $sqlSTR= "SELECT sum(subtotal)subtotal, sum(impuesto)impuesto, (sum(subtotal)+sum(impuesto))total from
+        (select c.idcarrito, c.idlibro, l.nombreLibro, l.coverart, ld.precio, c.cantidad,(ld.precio*c.cantidad)subtotal, ((ld.precio*c.cantidad)*0.15)impuesto  from carrito C JOIN libros l on c.idlibro=l.idlibros 
+        join  libro_detalle ld on l.idlibros = ld.idlibro)carrito";
             
-            return self::obtenerRegistros($sqlSTR,array("usercod"=>$usercod));
+            return self::obtenerRegistros($sqlSTR,array());
     }
 
-    public static function EliminarArticuloCarrito($idlibro)
+    public static function EliminarArticuloCarrito($idcarrito)
     {
         //dd($idlibro);
-        $sqlStr = "DELETE from tmpfacturadetalle where idlibro =:idlibro";
+        $sqlStr = "DELETE from carrito where idcarrito =:idcarrito;";
         return self::executeNonQuery($sqlStr, array(
-            "idlibro" => $idlibro
+            "idcarrito" => $idcarrito
         ));
+    }
+
+    public static function InsertarDatosCarrito($idlibro, $cantidad){
+        $sqlStr ="INSERT INTO `megabook`.`carrito` (`idlibro`, `cantidad`) VALUES (:idlibro, :cantidad);";
+        $parametros = array(
+            "idlibro" => $idlibro,
+            "cantidad" => $cantidad
+        );
+        return self::executeNonQuery($sqlStr, $parametros);
     }
 
 }

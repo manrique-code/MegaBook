@@ -182,14 +182,14 @@ main {
         <a href="#" class="header-item">Genero</a>
         {{with login}}
           <span class="username header-item">{{userName}} <a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i></a></span>
-          <div class="user-menu active">
+          <div class="user-menu ">
             <a href="#" class="profile menu-options">Tu perfil</a>
             <hr class="menu-separator">
             <h4 class="menu-actions">Acciones</h4>
-            <a href="index.php?page=mnt_libros" class="menu-options">Administrar libros</a>
-            <a href="index.php?page=mnt_libros" class="menu-options">Administrar categorías</a>
-            <a href="index.php?page=mnt_libros" class="menu-options">Administrar autores</a>
-            <a href="index.php?page=mnt_libros" class="menu-options">Administrar usuarios</a>
+           <a href="index.php?page=mnt_libros" class="menu-options">Administrar libros</a>
+            <a href="index.php?page=mnt_categorias" class="menu-options">Administrar categorías</a>
+            <a href="index.php?page=mnt_autores" class="menu-options">Administrar autores</a>
+            <a href="index.php?page=mnt_usuarios" class="menu-options">Administrar usuarios</a>
             <hr class="menu-separator">
             <a href="index.php?page=sec_logout" class="menu-logout">Cerrar sesión</a>
           </div>
