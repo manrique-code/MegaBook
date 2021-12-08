@@ -33,4 +33,3 @@ class Index extends PublicController
         \Views\Renderer::render("index", $viewData);
     }
 }
-?>

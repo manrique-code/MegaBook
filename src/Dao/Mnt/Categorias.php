@@ -1,19 +1,28 @@
 <?php
+
 namespace Dao\Mnt;
 
 use Dao\Table;
 
 class Categorias extends Table
 {
-    public static function obtenerCategorias()
+    public static function obtenerCategorias($orden = null)
     {
-        $sqlStr = "SELECT * from categorias;";
+        $sqlStr = "";
+        switch ($orden) {
+            case "alf":
+                $sqlStr = "SELECT * FROM categorias ORDER BY categoriaDes";
+                break;
+            default:
+                $sqlStr = "SELECT * FROM categorias";
+                break;
+        }
         return self::obtenerRegistros($sqlStr, array());
     }
     public static function obtenerCategoria($idCategorias)
     {
         $sqlStr = "SELECT * from categorias where idCategorias = :idCategorias;";
-        return self::obtenerUnRegistro($sqlStr, array("idCategorias"=>intval($idCategorias)));
+        return self::obtenerUnRegistro($sqlStr, array("idCategorias" => intval($idCategorias)));
     }
     public static function crearCategoria($categoriaDes)
     {
@@ -43,5 +52,3 @@ class Categorias extends Table
         return self::executeNonQuery($sqlstr, $parametros);
     }
 }
-
-?>

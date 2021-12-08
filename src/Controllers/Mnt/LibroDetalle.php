@@ -5,7 +5,7 @@ namespace Controllers\Mnt;
 use Controllers\PrivateController;
 use Views\Renderer;
 
-class Libro extends PrivateController
+class LibroDetalle extends PrivateController
 {
     private function nope($lineaCodigo)
     {
@@ -26,7 +26,7 @@ class Libro extends PrivateController
     private function nextStep($idlibros)
     {
         \Utilities\Site::redirectToWithMsg(
-            "index.php?page=mnt_libroautores&mode=CRT&idlibros=$idlibros",
+            "index.php?page=mnt_libros",
             "¡Operación realizada satisfactoriamente!"
         );
     }
@@ -38,14 +38,16 @@ class Libro extends PrivateController
             "mode" => "",
             "idlibros" => "",
             "nombreLibro" => "",
-            "descripcion" => "",
             "coverart" => "",
+            "desc" => "",
+            "precio" => "",
+            "descexp" => "",
+            "stock" => "",
             "hasErrors" => false,
             "Errors" => array(),
             "showAction" => true,
             "readonly" => false,
-            "steps" => false,
-            "loggeado" => true
+            "steps" => false
         );
 
         $modeDscArray = array(
@@ -56,31 +58,23 @@ class Libro extends PrivateController
         );
 
         if ($this->isPostBack()) {
+            // dd($_POST);
             $viewData["mode"] = $_POST["mode"];
             $viewData["idlibros"] = $_POST["idlibros"];
-            $viewData["nombreLibro"] = $_POST["nombreLibro"];
-            $viewData["descripcion"] = $_POST["descripcion"];
+            $viewData["precio"] = $_POST["precio"];
+            $viewData["desc"] = ($_POST["desc"]) === "" ? 0 : $_POST["desc"];
+            $viewData["descexp"] = ($_POST["descexp"]) === "" ? 0 : $_POST["descexp"];
+            $viewData["stock"] = $_POST["stock"];
             $viewData["xsrftoken"] = $_POST["xsrftoken"];
             // Validar el XSRFTOKEN.
             if (!isset($_SESSION["xsrftoken"]) || $viewData["xsrftoken"] != $_SESSION["xsrftoken"]) {
                 $this->nope("63");
             }
-            // dd($_FILES["coverart"]["name"]);
-            if (
-                (trim($_FILES["coverart"]["name"]) !== "") &&
-                ($_FILES["coverart"]["size"] > 0) &&
-                (trim($_FILES["coverart"]["tmp_name"] !== ""))
-            ) {
-                $viewData["coverart"] = $_FILES["coverart"];
-            } else {
-                $viewData["hasErrors"] = true;
-                $viewData["Errors"][] = "¡El libro necesita una portada!";
-            }
-            if (\Utilities\Validators::IsEmpty($viewData["nombreLibro"])) {
+            if (\Utilities\Validators::IsEmpty($viewData["precio"])) {
                 $viewData["hasErrors"] = true;
                 $viewData["Errors"][] = "¡El nombre del libro no puede ir vacio!";
             }
-            if (\Utilities\Validators::IsEmpty($viewData["descripcion"])) {
+            if (\Utilities\Validators::IsEmpty($viewData["stock"])) {
                 $viewData["hasErrors"] = true;
                 $viewData["Errors"][] = "¡La descripción del libro no puede estar vacía!";
             }
@@ -88,13 +82,15 @@ class Libro extends PrivateController
             if (!$viewData["hasErrors"]) {
                 switch ($viewData["mode"]) {
                     case "INS":
-                        if (\Dao\Mnt\Libros::crearLibro(
+                        // dd($viewData);
+                        if (\Dao\Mnt\LibroDetalle::crearDetalleLibro(
                             $viewData["idlibros"],
-                            $viewData["nombreLibro"],
-                            $viewData["descripcion"],
-                            \Dao\Mnt\Libros::subirImagen($viewData["coverart"])
+                            $viewData["stock"],
+                            $viewData["desc"],
+                            $viewData["descexp"],
+                            $viewData["precio"]
                         ))
-                            $this->nextStep($viewData["idlibros"]);
+                            $this->yeah();
                         break;
                     case "UPD":
                         if (\Dao\Mnt\Libros::editarLibro(
@@ -121,16 +117,19 @@ class Libro extends PrivateController
             else if ($viewData["mode"] !== "INS") $this->nope("75");
         }
 
+        $tmpLibroDetalle = \Dao\Mnt\LibroDetalle::obtenerLibroDetallePorLibro($viewData["idlibros"]);
+        $viewData["coverart"] = $tmpLibroDetalle["coverart"];
+        $viewData["nombreLibro"] = $tmpLibroDetalle["nombreLibro"];
+        $viewData["precio"] = $tmpLibroDetalle["precio"];
+        $viewData["descexp"] = $tmpLibroDetalle["descexp"];
+        $viewData["stock"] = $tmpLibroDetalle["stock"];
+        $viewData["desc"] = $tmpLibroDetalle["desc"];
         if ($viewData["mode"] == "INS") {
-            $viewData["idlibros"] = \Dao\Mnt\Libros::GUID();
             $viewData["mode_dsc"] = $modeDscArray["INS"];
             $viewData["steps"] = true;
         } else {
             // Obtenemos el libro al momento de actualizar
-            $tmpLibro = \Dao\Mnt\Libros::obtenerLibro($viewData["idlibros"]);
-            $viewData["nombreLibro"] = $tmpLibro["nombreLibro"];
-            $viewData["descripcion"] = $tmpLibro["descripcion"];
-            $viewData["coverart"] = $tmpLibro["coverart"];
+
             $viewData["mode_dsc"] = sprintf(
                 $modeDscArray[$viewData["mode"]],
                 $viewData["idlibros"],
@@ -139,6 +138,7 @@ class Libro extends PrivateController
             if ($viewData["mode"] === "DSP") {
                 $viewData["showAction"] = false;
                 $viewData["readonly"] = "readonly";
+                // dd($viewData);
             }
             if ($viewData["mode"] === "DEL") {
                 $viewData["showAction"] = false;
@@ -147,6 +147,6 @@ class Libro extends PrivateController
         }
         $viewData["xsrftoken"] = md5($this->name . random_int(10000, 99999));
         $_SESSION["xsrftoken"] = $viewData["xsrftoken"];
-        Renderer::render("mnt/libro", $viewData);
+        Renderer::render("mnt/librodetalle", $viewData);
     }
 }

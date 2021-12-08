@@ -9,16 +9,27 @@ class Libros extends Table
     // Obtenemos todos los libros con sus categorias y autores.
     public static function obtenerTodoLibros()
     {
-        $sqlStr = "SELECT l.idlibros,
-                            l.nombreLibro,
-                            l.coverart,
-                            a.idAutor,
-                            CONCAT(a.nombreAutor, a.apellidoAutor) as nombreAutor
+        $sqlStr = "SELECT
+                    l.idlibros,
+                    l.nombreLibro,
+                    l.coverart,
+                    ld.precio,
+                    ld.`desc`,
+                    ld.descexp,
+                    a.idAutor,
+                    CONCAT(a.nombreAutor, ' ', a.apellidoAutor) as nombreAutor,
+                    GROUP_CONCAT(DISTINCT c.categoriaDes SEPARATOR ' - ') as categorias
                     FROM libros l
+                    INNER JOIN libro_detalle ld
+                    ON l.idlibros = ld.idlibro
                     INNER JOIN libros_autores la
                     ON l.idlibros = la.idlibros
                     INNER JOIN autores a
-                    on la.idAutor = a.idAutor;";
+                    ON la.idAutor = a.idAutor
+                    INNER JOIN libros_categorias lc
+                    ON l.idlibros = lc.idlibros
+                    INNER JOIN categorias c
+                    ON lc.idCategoria = c.idCategorias;";
         return self::obtenerRegistros($sqlStr, array());
     }
     // Obtener todos los libros que están en el inventario.
