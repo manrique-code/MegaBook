@@ -12,7 +12,7 @@ class Site
     }
     public static function getPageRequest()
     {
-        $pageRequest = "index";
+        $pageRequest = "Home";
         if (\Utilities\Security::isLogged()) {
             $pageRequest = "admin\\admin";
         }

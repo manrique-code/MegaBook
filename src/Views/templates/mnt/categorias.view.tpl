@@ -6,7 +6,7 @@
         margin: 0.5em;
     }
 </style>
-<h1>Gestión de Libros</h1>
+<h1>Gestión de Categorisa de Libros</h1>
 <section class="WWFilter">
 
 </section>
