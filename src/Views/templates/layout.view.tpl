@@ -181,15 +181,15 @@ main {
         Mega<span class="red">Book</span>
       </a >
       <nav class="header-items-container">
-        <a href="#" class="header-item">Libros</a>
+        <a href="index.php?page=sec_sigin" class="header-item">Libros</a>
         <a href="#" class="header-item">Escritor</a>
         <a href="#" class="header-item">Genero</a>
         {{with login}}
           <span class="username header-item" id="user-menu">{{userName}} <a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i></a></span>
-          <div class="user-menu" >
+          <div class="user-menu active" >
             <a href="http://localhost/MegaBook/index.php?page=sec.login&redirto=%2FMegaBook%2Findex.php%3Fpage%3Dhome" class="profile menu-options">Tu perfil</a>
             <hr class="menu-separator">
-            <h4 class="menu-actions">Acciones</h4>
+            <h4 class="menu-actions active">Acciones</h4>
             <a href="index.php?page=mnt_libros" class="menu-options">Administrar libros</a>
             <a href="index.php?page=mnt_categorias" class="menu-options">Administrar categorías</a>
             <a href="index.php?page=mnt_autores" class="menu-options">Administrar autores</a>

@@ -189,8 +189,8 @@ main {
         <a href="#" class="header-item">Genero</a>
         {{with login}}
           <a href="#" class="username header-item" id="user-menu">{{userName}}</a>
-          <div class="user-menu">
-            <a href="#" class="profile menu-options">Tu perfil</a>
+          <div class="user-menu active"> 
+            <a href="index.php?page=mnt_perfil&mode=DSP&usercod={{userId}}" class="profile menu-options">Tu perfil</a>
             <hr class="menu-separator">
             <h4 class="menu-actions">Acciones</h4>
            <a href="index.php?page=mnt_libros" class="menu-options">Administrar libros</a>
