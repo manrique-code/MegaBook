@@ -8,7 +8,7 @@ class Autores extends Table
 {
     public static function obtenerAutores()
     {
-        $sqlStr = "SELECT * from autores";
+        $sqlStr = "SELECT * from autores;";
         return self::obtenerRegistros($sqlStr, array());
     }
 
