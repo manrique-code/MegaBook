@@ -17,19 +17,14 @@ class Libros extends Table
                     ld.`desc`,
                     ld.descexp,
                     a.idAutor,
-                    CONCAT(a.nombreAutor, ' ', a.apellidoAutor) as nombreAutor,
-                    GROUP_CONCAT(DISTINCT c.categoriaDes SEPARATOR ' - ') as categorias
+                    CONCAT(a.nombreAutor, ' ', a.apellidoAutor) as nombreAutor
                     FROM libros l
                     INNER JOIN libro_detalle ld
                     ON l.idlibros = ld.idlibro
                     INNER JOIN libros_autores la
                     ON l.idlibros = la.idlibros
                     INNER JOIN autores a
-                    ON la.idAutor = a.idAutor
-                    INNER JOIN libros_categorias lc
-                    ON l.idlibros = lc.idlibros
-                    INNER JOIN categorias c
-                    ON lc.idCategoria = c.idCategorias;";
+                    ON la.idAutor = a.idAutor;";
         return self::obtenerRegistros($sqlStr, array());
     }
     // Obtener todos los libros que están en el inventario.

@@ -114,6 +114,10 @@ nav {
   border: 1px solid transparent;
 }
 
+.user-menu {
+  transform: scale(0);
+}
+
 .user-menu.active {
   display: flex;
   flex-flow: column nowrap;
@@ -181,8 +185,8 @@ main {
         <a href="#" class="header-item">Escritor</a>
         <a href="#" class="header-item">Genero</a>
         {{with login}}
-          <span class="username header-item">{{userName}} <a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i></a></span>
-          <div class="user-menu active">
+          <span class="username header-item" id="user-menu">{{userName}} <a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i></a></span>
+          <div class="user-menu" >
             <a href="http://localhost/MegaBook/index.php?page=sec.login&redirto=%2FMegaBook%2Findex.php%3Fpage%3Dhome" class="profile menu-options">Tu perfil</a>
             <hr class="menu-separator">
             <h4 class="menu-actions">Acciones</h4>
@@ -205,6 +209,11 @@ main {
   </footer>
   {{foreach EndScripts}}
     <script src="/{{~BASE_DIR}}/{{this}}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", e => {
+        document.getElementById("")
+      });
+    </script>
   {{endfor EndScripts}}
 </body>
 </html>

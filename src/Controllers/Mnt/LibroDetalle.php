@@ -117,19 +117,23 @@ class LibroDetalle extends PrivateController
             else if ($viewData["mode"] !== "INS") $this->nope("75");
         }
 
-        $tmpLibroDetalle = \Dao\Mnt\LibroDetalle::obtenerLibroDetallePorLibro($viewData["idlibros"]);
-        $viewData["coverart"] = $tmpLibroDetalle["coverart"];
-        $viewData["nombreLibro"] = $tmpLibroDetalle["nombreLibro"];
-        $viewData["precio"] = $tmpLibroDetalle["precio"];
-        $viewData["descexp"] = $tmpLibroDetalle["descexp"];
-        $viewData["stock"] = $tmpLibroDetalle["stock"];
-        $viewData["desc"] = $tmpLibroDetalle["desc"];
+
         if ($viewData["mode"] == "INS") {
+            $tmpLibroDetalle = \Dao\Mnt\Libros::obtenerLibro($viewData["idlibros"]);
+            $viewData["coverart"] = $tmpLibroDetalle["coverart"];
+            $viewData["nombreLibro"] = $tmpLibroDetalle["nombreLibro"];
             $viewData["mode_dsc"] = $modeDscArray["INS"];
             $viewData["steps"] = true;
         } else {
             // Obtenemos el libro al momento de actualizar
-
+            $tmpLibroDetalle = \Dao\Mnt\LibroDetalle::obtenerLibroDetallePorLibro($viewData["idlibros"]);
+            dd($tmpLibroDetalle);
+            $viewData["coverart"] = $tmpLibroDetalle["coverart"];
+            $viewData["nombreLibro"] = $tmpLibroDetalle["nombreLibro"];
+            $viewData["precio"] = $tmpLibroDetalle["precio"];
+            $viewData["descexp"] = $tmpLibroDetalle["descexp"];
+            $viewData["stock"] = $tmpLibroDetalle["stock"];
+            $viewData["desc"] = $tmpLibroDetalle["desc"];
             $viewData["mode_dsc"] = sprintf(
                 $modeDscArray[$viewData["mode"]],
                 $viewData["idlibros"],

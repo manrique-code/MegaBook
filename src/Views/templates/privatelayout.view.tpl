@@ -48,7 +48,7 @@
   }
   header {
      height: 50px;
-     background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)) !important;
+     background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0)) !important;
      background-color: transparent !important;
     display: flex;
     flex-flow: column wrap;
@@ -114,11 +114,18 @@ nav {
   border: 1px solid transparent;
 }
 
+.user-menu {
+  display: none;
+  transition: .4s all ease-in-out;
+  transform-origin: top;
+}
+
 .user-menu.active {
   display: flex;
   flex-flow: column nowrap;
   position: absolute;
   right: 0;
+  transform: scale(1);
   top: 2rem;
   background-color: var(--secondary-background-color);
   padding: 1rem;
@@ -181,8 +188,8 @@ main {
         <a href="#" class="header-item">Escritor</a>
         <a href="#" class="header-item">Genero</a>
         {{with login}}
-          <span class="username header-item">{{userName}} <a href="index.php?page=sec_logout"><i class="fas fa-sign-out-alt"></i></a></span>
-          <div class="user-menu active">
+          <a href="#" class="username header-item" id="user-menu">{{userName}}</a>
+          <div class="user-menu">
             <a href="#" class="profile menu-options">Tu perfil</a>
             <hr class="menu-separator">
             <h4 class="menu-actions">Acciones</h4>
@@ -199,11 +206,17 @@ main {
   <main>
     {{{page_content}}}
   </main>
-  <footer>
-    <div>Todo los Derechos Reservados 2021 &copy;</div>
-  </footer>
   {{foreach EndScripts}}
-  <script src="/{{~BASE_DIR}}/{{this}}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let showMenu = false;
+      document.getElementById("user-menu").addEventListener("click", e => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("Hola mundo");
+      });
+    });
+  </script>
   {{endfor EndScripts}}
 </body>
 </html>
